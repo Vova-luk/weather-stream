@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package location;
+
+// protoc   -I ./proto   -I ./proto/third_party   --go_out=./proto --go_opt=paths=source_relative   --go-grpc_out=./proto --go-grpc_opt=paths=source_relative   --grpc-gateway_out=./proto --grpc-gateway_opt=paths=source_relative   proto/location.proto
+
+option go_package = "github.com/Vova-luk/weather-stream/services/location-service/proto;location";
+
+import "google/api/annotations.proto";
+
+service LocationService {
+    rpc CreateLocation(CreateLocationRequest) returns (CreateLocationResponse) {
+        option (google.api.http) = {
+            post: "/v1/location"
+            body:"*"
+        };
+    }
+    rpc GetLocations(Empty) returns (GetLocationsResponse) {
+        option (google.api.http) = {
+            get: "/v1/location"
+        };
+    }
+}
+
+
+message CreateLocationRequest {
+    string name = 1;
+    string coordinates = 2;
+}
+
+message CreateLocationResponse {
+    int32 locationId = 1;
+}
+
+message Item {
+    int32 locationId = 1;
+    string name = 2;
+    string coordinates = 3;
+}
+
+message Empty {}
+
+message GetLocationsResponse {
+    repeated Item items = 1;
+}
