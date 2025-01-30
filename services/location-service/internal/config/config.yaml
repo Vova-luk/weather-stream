@@ -1,0 +1,10 @@
+server: 
+  port: 50051
+  gateway_port: 8080
+
+database:
+  host: "postgres"
+  port: "5432"
+  sslmode: "disable"
+
+
