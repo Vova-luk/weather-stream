@@ -3,9 +3,9 @@ package handler
 import (
 	"context"
 
-	"github.com/Vova-luk/weather-stream/location-service/internal/models"
-	"github.com/Vova-luk/weather-stream/location-service/internal/service"
-	pb "github.com/Vova-luk/weather-stream/location-service/proto"
+	"github.com/Vova-luk/weather-stream/services/location-service/internal/models"
+	"github.com/Vova-luk/weather-stream/services/location-service/internal/service"
+	pb "github.com/Vova-luk/weather-stream/services/location-service/proto"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 

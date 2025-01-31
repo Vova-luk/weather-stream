@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/Vova-luk/weather-stream/location-service/internal/models"
-	"github.com/Vova-luk/weather-stream/location-service/internal/repository"
-	pb "github.com/Vova-luk/weather-stream/location-service/proto"
+	"github.com/Vova-luk/weather-stream/services/location-service/internal/models"
+	"github.com/Vova-luk/weather-stream/services/location-service/internal/repository"
+	pb "github.com/Vova-luk/weather-stream/services/location-service/proto"
 	"github.com/sirupsen/logrus"
 )
 

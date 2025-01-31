@@ -1,4 +1,4 @@
-module github.com/Vova-luk/weather-stream/location-service
+module github.com/Vova-luk/weather-stream/services/location-service
 
 go 1.23.1
 

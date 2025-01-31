@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/Vova-luk/weather-stream/location-service/internal/models"
+	"github.com/Vova-luk/weather-stream/services/location-service/internal/models"
 	"github.com/jmoiron/sqlx"
 )
 

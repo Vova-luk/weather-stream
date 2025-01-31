@@ -1,16 +1,16 @@
 package main
 
 import (
-	"github.com/Vova-luk/weather-stream/location-service/internal/config"
-	"github.com/Vova-luk/weather-stream/location-service/internal/handler"
-	"github.com/Vova-luk/weather-stream/location-service/internal/logger"
-	"github.com/Vova-luk/weather-stream/location-service/internal/repository"
-	"github.com/Vova-luk/weather-stream/location-service/internal/service"
-	"github.com/Vova-luk/weather-stream/location-service/pkg/db"
+	"github.com/Vova-luk/weather-stream/services/location-service/internal/config"
+	"github.com/Vova-luk/weather-stream/services/location-service/internal/handler"
+	"github.com/Vova-luk/weather-stream/services/location-service/internal/logger"
+	"github.com/Vova-luk/weather-stream/services/location-service/internal/repository"
+	"github.com/Vova-luk/weather-stream/services/location-service/internal/service"
+	"github.com/Vova-luk/weather-stream/services/location-service/pkg/db"
 
 	"google.golang.org/grpc"
 
-	pb "github.com/Vova-luk/weather-stream/location-service/proto"
+	pb "github.com/Vova-luk/weather-stream/services/location-service/proto"
 
 	"context"
 	"net"
@@ -24,12 +24,9 @@ func main() {
 
 	log := logger.InitLogger()
 
-	cfg, err := config.LoadConfig()
-	if err != nil {
-		log.Fatalf("Error loading configuration %v", err)
-	}
+	cfg := config.LoadConfig()
 
-	database, err := db.ConnectPosrge(cfg)
+	database, err := db.ConnectPostgre(cfg)
 	if err != nil {
 		log.Fatalf("Bad Connect to Postgre %s", err.Error())
 	}

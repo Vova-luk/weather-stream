@@ -25,16 +25,16 @@ type Database struct {
 	SSLMode  string
 }
 
-func LoadConfig() (*Config, error) {
+func LoadConfig() *Config {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath("internal/config")
 
 	viper.ReadInConfig()
 
-	viper.SetDefault("database.postgres_user", "weather_user")
-	viper.SetDefault("database.postgres_password", "weather_pass")
-	viper.SetDefault("database.postgres_db", "weather_db")
+	viper.SetDefault("POSTGRES_USER", "weather_user")
+	viper.SetDefault("POSTGRES_PASSWORD", "weather_pass")
+	viper.SetDefault("POSTGRES_DB", "weather_db")
 
 	viper.AutomaticEnv()
 
@@ -56,5 +56,5 @@ func LoadConfig() (*Config, error) {
 	fmt.Printf("Loaded Config: Host=%s Port=%s User=%s Password=***** DBName=%s SSLMode=%s\n",
 		cfg.DB.Host, cfg.DB.Port, cfg.DB.User, cfg.DB.DBName, cfg.DB.SSLMode)
 
-	return cfg, nil
+	return cfg
 }
