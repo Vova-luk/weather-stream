@@ -1,14 +1,13 @@
 package config
 
 import (
-	"fmt"
-
 	"github.com/spf13/viper"
 )
 
 type Config struct {
 	Server Server
 	DB     Database
+	Kafka  Kafka
 }
 
 type Server struct {
@@ -23,6 +22,11 @@ type Database struct {
 	Password string
 	DBName   string
 	SSLMode  string
+}
+
+type Kafka struct {
+	Brokers       []string
+	LocationTopic string
 }
 
 func LoadConfig() *Config {
@@ -51,10 +55,11 @@ func LoadConfig() *Config {
 			DBName:   viper.GetString("POSTGRES_DB"),
 			SSLMode:  viper.GetString("database.sslmode"),
 		},
+		Kafka: Kafka{
+			Brokers:       viper.GetStringSlice("kafka.brokers"),
+			LocationTopic: viper.GetString("kafka.location_topic"),
+		},
 	}
-
-	fmt.Printf("Loaded Config: Host=%s Port=%s User=%s Password=***** DBName=%s SSLMode=%s\n",
-		cfg.DB.Host, cfg.DB.Port, cfg.DB.User, cfg.DB.DBName, cfg.DB.SSLMode)
 
 	return cfg
 }

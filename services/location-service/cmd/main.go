@@ -7,10 +7,11 @@ import (
 	"github.com/Vova-luk/weather-stream/services/location-service/internal/repository"
 	"github.com/Vova-luk/weather-stream/services/location-service/internal/service"
 	"github.com/Vova-luk/weather-stream/services/location-service/pkg/db"
+	"github.com/Vova-luk/weather-stream/services/location-service/pkg/kafka"
 
 	"google.golang.org/grpc"
 
-	pb "github.com/Vova-luk/weather-stream/services/location-service/proto"
+	locationPb "github.com/Vova-luk/weather-stream/services/location-service/proto/location"
 
 	"context"
 	"net"
@@ -31,12 +32,19 @@ func main() {
 		log.Fatalf("Bad Connect to Postgre %s", err.Error())
 	}
 
+	kafkaBrokers := cfg.Kafka.Brokers
+
+	producer, err := kafka.NewProducer(kafkaBrokers, cfg.Kafka.LocationTopic, log)
+	if err != nil {
+		log.Fatalf("Error creating producer %s", err.Error())
+	}
+
 	locationRepo := repository.NewLocationRepository(database)
-	locationService := service.NewLocationService(locationRepo, log)
+	locationService := service.NewLocationService(locationRepo, producer, log, cfg)
 	localHandler := handler.NewLocationHanadler(locationService, log)
 
 	grpcServer := grpc.NewServer()
-	pb.RegisterLocationServiceServer(grpcServer, localHandler)
+	locationPb.RegisterLocationServiceServer(grpcServer, localHandler)
 
 	grpcAddr := ":" + cfg.Server.Port
 	gatewayAddr := ":" + cfg.Server.GatewayPort
@@ -55,7 +63,7 @@ func main() {
 	ctx := context.Background()
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	if err := pb.RegisterLocationServiceHandlerFromEndpoint(ctx, mux, grpcAddr, opts); err != nil {
+	if err := locationPb.RegisterLocationServiceHandlerFromEndpoint(ctx, mux, grpcAddr, opts); err != nil {
 		log.Fatalf("Failed to start REST Gateway: %v", err)
 	}
 	log.Infof("REST Gateway started on %s", gatewayAddr)

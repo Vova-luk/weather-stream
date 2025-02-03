@@ -7,4 +7,7 @@ database:
   port: "5432"
   sslmode: "disable"
 
+kafka:
+  brokers: "kafka:9092"
+  location_topic: "location-added-topic"
 
