@@ -1,0 +1,15 @@
+server:
+  port: 50052
+
+database:
+  host: "postgres"
+  port: "5432"
+  sslmode: "disable"
+
+kafka:
+  brokers: "kafka:9092"
+  group_id: "weather-service-group"
+  location_topic: "location-added-topic"
+
+external_api:
+  base_url: "https://api.weatherapi.com/v1/current.json"
