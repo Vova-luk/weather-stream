@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package weather;
+
+// protoc   -I ./proto --go_out=./proto --go_opt=paths=source_relative   --go-grpc_out=./proto --go-grpc_opt=paths=source_relative  proto/weather.proto
+
+
+option go_package = "github.com/Vova-luk/weather-stream/services/weather-service/proto;weather";
+
+service WeatherService {
+    rpc GetWeatherById(GetWeatherByIdRequest) returns (GetWeatherByIdResponse);
+}
+
+message WeatherData {
+    int32 LocationId = 1;
+    double Temperature = 2;
+    int32 Humidity = 3;
+    double WindSpeed = 4;
+    double Pressure = 5;
+    double Precip = 6;
+    int32 Cloud = 7;
+    string UpdateAt = 8;
+}
+
+message GetWeatherByIdRequest {
+    int32 LocationId = 1;
+}
+
+message GetWeatherByIdResponse {
+    WeatherData Weather = 1;
+}
