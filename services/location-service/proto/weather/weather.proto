@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package weather;
+
+// protoc   -I ./proto/weather   -I ./proto/third_party   --go_out=./proto/weather --go_opt=paths=source_relative   --go-grpc_out=./proto/weather --go-grpc_opt=paths=source_relative   --grpc-gateway_out=./proto/weather --grpc-gateway_opt=paths=source_relative   proto/weather/weather.proto
+
+
+option go_package = "github.com/Vova-luk/weather-stream/services/location-service/weather/proto;weather";
+
+import "google/api/annotations.proto";
+
+service WeatherService {
+    rpc GetLocationById(GetLocationByIdRequest) returns (GetLocationByIdResponce) {
+        option (google.api.http) = {
+            get: "/v1/location/{locationId}"
+        };
+    }
+}
+
+message WeatherData {
+    int32 LocationId = 1;
+    double Temperature = 2;
+    int32 Humidity = 3;
+    double WindSpeed = 4;
+    double Pressure = 5;
+    double Precip = 6;
+    int32 Cloud = 7;
+    string UpdateAt = 8;
+}
+
+message GetLocationByIdRequest {
+    int32 locationId = 1;
+}
+
+message GetLocationByIdResponce {
+    WeatherData Weather = 1;
+}
