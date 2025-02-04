@@ -12,6 +12,7 @@ import (
 	"google.golang.org/grpc"
 
 	locationPb "github.com/Vova-luk/weather-stream/services/location-service/proto/location"
+	weatherPb "github.com/Vova-luk/weather-stream/services/weather-service/proto"
 
 	"context"
 	"net"
@@ -39,12 +40,23 @@ func main() {
 		log.Fatalf("Error creating producer %s", err.Error())
 	}
 
+	weatherConn, err := grpc.Dial("weather-service:50052", grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("Error connecting to weather-service %s", err.Error())
+	}
+
+	weatherClient := weatherPb.NewWeatherServiceClient(weatherConn)
+
 	locationRepo := repository.NewLocationRepository(database)
 	locationService := service.NewLocationService(locationRepo, producer, log, cfg)
 	localHandler := handler.NewLocationHanadler(locationService, log)
 
+	weatherService := service.NewWeatherService(weatherClient, log)
+	weatherHandler := handler.NewWeatherHandler(weatherService)
+
 	grpcServer := grpc.NewServer()
 	locationPb.RegisterLocationServiceServer(grpcServer, localHandler)
+	weatherPb.RegisterWeatherServiceServer(grpcServer, weatherHandler)
 
 	grpcAddr := ":" + cfg.Server.Port
 	gatewayAddr := ":" + cfg.Server.GatewayPort
