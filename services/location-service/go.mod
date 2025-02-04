@@ -4,6 +4,7 @@ go 1.23.1
 
 require (
 	github.com/IBM/sarama v1.45.0
+	github.com/Vova-luk/weather-stream/services/weather-service v0.0.0-20250204104433-9db3104d6fa6
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.0
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/lib/pq v1.10.9
@@ -14,10 +15,9 @@ require (
 	google.golang.org/protobuf v1.36.4
 )
 
-replace github.com/Vova-luk/weather-stream/services/weather-service => ../weather-service
+// replace github.com/Vova-luk/weather-stream/services/weather-service => ../weather-service
 
 require (
-	github.com/Vova-luk/weather-stream/services/weather-service v0.0.0-20250204104433-9db3104d6fa6 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/eapache/go-resiliency v1.7.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3 // indirect
