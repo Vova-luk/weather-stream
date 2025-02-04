@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package weather;
+package location_weather;
 
-// protoc   -I ./proto/weather   -I ./proto/third_party   --go_out=./proto/weather --go_opt=paths=source_relative   --go-grpc_out=./proto/weather --go-grpc_opt=paths=source_relative   --grpc-gateway_out=./proto/weather --grpc-gateway_opt=paths=source_relative   proto/weather/weather.proto
+// protoc   -I ./proto/location_weather   -I ./proto/third_party   --go_out=./proto/location_weather --go_opt=paths=source_relative   --go-grpc_out=./proto/location_weather --go-grpc_opt=paths=source_relative   --grpc-gateway_out=./proto/location_weather --grpc-gateway_opt=paths=source_relative   proto/location_weather/location_weather.proto
 
 
-option go_package = "github.com/Vova-luk/weather-stream/services/location-service/weather/proto;weather";
+option go_package = "github.com/Vova-luk/weather-stream/services/location-service/location_weather/proto;location_weather";
 
 import "google/api/annotations.proto";
 

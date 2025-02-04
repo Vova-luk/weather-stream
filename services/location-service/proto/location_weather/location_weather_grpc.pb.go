@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v5.29.3
-// source: weather.proto
+// source: location_weather.proto
 
-package weather
+package location_weather
 
 import (
 	context "context"
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	WeatherService_GetLocationById_FullMethodName = "/weather.WeatherService/GetLocationById"
+	WeatherService_GetLocationById_FullMethodName = "/location_weather.WeatherService/GetLocationById"
 )
 
 // WeatherServiceClient is the client API for WeatherService service.
@@ -108,7 +108,7 @@ func _WeatherService_GetLocationById_Handler(srv interface{}, ctx context.Contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var WeatherService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "weather.WeatherService",
+	ServiceName: "location_weather.WeatherService",
 	HandlerType: (*WeatherServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -117,5 +117,5 @@ var WeatherService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "weather.proto",
+	Metadata: "location_weather.proto",
 }
