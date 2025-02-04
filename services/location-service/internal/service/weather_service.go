@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	locationWeatherPb "github.com/Vova-luk/weather-stream/services/location-service/proto/weather"
+	locationWeatherPb "github.com/Vova-luk/weather-stream/services/location-service/proto/location_weather"
 	weatherPb "github.com/Vova-luk/weather-stream/services/weather-service/proto"
 	"github.com/sirupsen/logrus"
 )

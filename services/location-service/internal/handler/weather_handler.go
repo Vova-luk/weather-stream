@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/Vova-luk/weather-stream/services/location-service/internal/service"
-	locationWeatherPb "github.com/Vova-luk/weather-stream/services/location-service/proto/weather"
+	locationWeatherPb "github.com/Vova-luk/weather-stream/services/location-service/proto/location_weather"
 	weatherPb "github.com/Vova-luk/weather-stream/services/weather-service/proto"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
