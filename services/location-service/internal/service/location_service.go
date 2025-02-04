@@ -51,14 +51,8 @@ func (l *LocationService) GetLocationsService() ([]*locationPb.Location, error) 
 		l.log.Errorf("error when getting locations: %v", err.Error())
 		return nil, err
 	}
-	locationsItems := make([]*locationPb.Location, len(locations))
-	for ind, location := range locations {
-		locationsItems[ind] = &locationPb.Location{
-			LocationId:  int32(location.ID),
-			Name:        location.Name,
-			Coordinates: location.Coordinates,
-		}
-	}
+	locationsItems := models.ToProto(locations)
+
 	l.log.Info("Locations successfully received")
 	return locationsItems, nil
 }
