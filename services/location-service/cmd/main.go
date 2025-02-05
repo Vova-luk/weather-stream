@@ -12,6 +12,7 @@ import (
 	"google.golang.org/grpc"
 
 	locationPb "github.com/Vova-luk/weather-stream/services/location-service/proto/location"
+	locationWeatherPb "github.com/Vova-luk/weather-stream/services/location-service/proto/location_weather"
 	weatherPb "github.com/Vova-luk/weather-stream/services/weather-service/proto"
 
 	"context"
@@ -44,6 +45,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error connecting to weather-service %s", err.Error())
 	}
+	log.Infof("Connected to weather-service on the port: %s", 50052)
 
 	weatherClient := weatherPb.NewWeatherServiceClient(weatherConn)
 
@@ -56,7 +58,7 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 	locationPb.RegisterLocationServiceServer(grpcServer, localHandler)
-	weatherPb.RegisterWeatherServiceServer(grpcServer, weatherHandler)
+	locationWeatherPb.RegisterWeatherServiceServer(grpcServer, weatherHandler)
 
 	grpcAddr := ":" + cfg.Server.Port
 	gatewayAddr := ":" + cfg.Server.GatewayPort
@@ -66,18 +68,25 @@ func main() {
 		if err != nil {
 			log.Fatalf("Failed to listen on port %s", err.Error())
 		}
-		log.Info("gRPC server started")
+
+		log.Info("gRPC server started on port: %s", grpcAddr)
 		if err := grpcServer.Serve(listen); err != nil {
 			log.Fatalf("Failed to serve gRPC: %s", err)
 		}
+
 	}()
 
 	ctx := context.Background()
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	if err := locationPb.RegisterLocationServiceHandlerFromEndpoint(ctx, mux, grpcAddr, opts); err != nil {
-		log.Fatalf("Failed to start REST Gateway: %v", err)
+		log.Fatalf("Failed to start REST Gateway from location: %v", err)
 	}
+
+	if err := locationWeatherPb.RegisterWeatherServiceHandlerFromEndpoint(ctx, mux, grpcAddr, opts); err != nil {
+		log.Fatalf("Failed to start REST Gateway from weather: %v", err)
+	}
+
 	log.Infof("REST Gateway started on %s", gatewayAddr)
 	if err := http.ListenAndServe(gatewayAddr, mux); err != nil {
 		log.Fatalf("Failed to serve REST Gateway: %v", err)
