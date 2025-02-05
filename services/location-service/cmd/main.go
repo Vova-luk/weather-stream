@@ -41,7 +41,9 @@ func main() {
 		log.Fatalf("Error creating producer %s", err.Error())
 	}
 
-	weatherConn, err := grpc.Dial("weather-service:50052", grpc.WithInsecure())
+	grpcAddrWeather := "weather-service:" + cfg.Server.WeatherServicePort
+
+	weatherConn, err := grpc.Dial(grpcAddrWeather, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("Error connecting to weather-service %s", err.Error())
 	}
