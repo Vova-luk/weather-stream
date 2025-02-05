@@ -1,5 +1,6 @@
 server: 
   port: 50051
+  weather_service_port: 50052
   gateway_port: 8080
 
 database:
