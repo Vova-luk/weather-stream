@@ -16,15 +16,15 @@ func NewWeatherRepository(db *sqlx.DB) *WeatherRepository {
 }
 
 func (w *WeatherRepository) GetWeatherById(locationId int32) (*models.WeatherData, error) {
-	var location *models.WeatherData
-	query := `SELECT * FROM weathers WHERE location_id=&1`
+	var location models.WeatherData
+	query := `SELECT * FROM weathers WHERE location_id=$1`
 
-	err := w.db.Select(&location, query, locationId)
+	err := w.db.Get(&location, query, locationId)
 	if err != nil {
 		return &models.WeatherData{}, err
 	}
 
-	return location, nil
+	return &location, nil
 }
 
 func (w *WeatherRepository) AddForcefullyWeather(weatherLocation *models.WeatherData) error {
