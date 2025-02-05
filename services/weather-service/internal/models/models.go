@@ -26,5 +26,5 @@ func (w *WeatherData) ToProto() *weatherPb.WeatherData {
 		Pressure:    w.Pressure,
 		Precip:      w.Precip,
 		Cloud:       w.Cloud,
-		UpdateAt:    w.UpdateAt.GoString()}
+		UpdateAt:    w.UpdateAt.Format(time.RFC3339)}
 }
