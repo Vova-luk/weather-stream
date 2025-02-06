@@ -34,7 +34,7 @@ func (l *LocationHandler) CreateLocation(ctx context.Context, request *locationP
 	}
 
 	return &locationPb.CreateLocationResponse{
-		LocationId: int32(locationId),
+		LocationId: locationId,
 	}, nil
 }
 

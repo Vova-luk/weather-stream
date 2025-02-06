@@ -13,8 +13,8 @@ func NewLocationRepository(db *sqlx.DB) *LocationRepository {
 	return &LocationRepository{db: db}
 }
 
-func (l *LocationRepository) CreateLocation(location *models.Location) (int, error) {
-	var locationId int
+func (l *LocationRepository) CreateLocation(location *models.Location) (int32, error) {
+	var locationId int32
 	query := `INSERT INTO locations (name, coordinates) 
 			  VALUES ($1, $2) 
 			  RETURNING id`

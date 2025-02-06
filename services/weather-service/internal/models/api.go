@@ -11,9 +11,9 @@ type WeatherInformation struct {
 	} `json:"current"`
 }
 
-func (w *WeatherInformation) ToWeatherData(locationId int) *WeatherData {
+func (w *WeatherInformation) ToWeatherData(locationId int32) *WeatherData {
 	return &WeatherData{
-		LocationId:  int32(locationId),
+		LocationId:  locationId,
 		Temperature: w.Current.TempC,
 		Humidity:    w.Current.Humidity,
 		WindSpeed:   w.Current.WindMph,
