@@ -35,3 +35,18 @@ func (w *WeatherRepository) AddForcefullyWeather(weatherLocation *models.Weather
 
 	return err
 }
+
+func (w *WeatherRepository) UpdateCurrentWeather(weatherData *models.WeatherData) error {
+	query := `UPDATE weathers 
+				SET temperature = :temperature,
+				humidity = :humidity,
+				wind_speed = :wind_speed,
+				pressure = :pressure.
+				precip = :precip,
+				cloud = :cloud
+			  WHERE location_id = :location_id;
+			`
+	_, err := w.db.NamedExec(query, weatherData)
+
+	return err
+}
