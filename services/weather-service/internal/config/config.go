@@ -12,7 +12,8 @@ type Config struct {
 }
 
 type Server struct {
-	Port string
+	Port                string
+	LocationServicePort string
 }
 
 type Database struct {
@@ -28,6 +29,7 @@ type Kafka struct {
 	Brokers       []string
 	GroupId       string
 	LocationTopic string
+	WeatherTopic  string
 }
 
 type ExternalApi struct {
@@ -50,7 +52,8 @@ func LoadConfig() *Config {
 
 	cfg := &Config{
 		Server: Server{
-			Port: viper.GetString("server.port"),
+			Port:                viper.GetString("server.port"),
+			LocationServicePort: viper.GetString("server.location_service_port"),
 		},
 		DB: Database{
 			Host:     viper.GetString("database.host"),
@@ -64,6 +67,7 @@ func LoadConfig() *Config {
 			Brokers:       viper.GetStringSlice("kafka.brokers"),
 			GroupId:       viper.GetString("kafka.group_id"),
 			LocationTopic: viper.GetString("kafka.location_topic"),
+			WeatherTopic:  viper.GetString("kafka.weather_topic"),
 		},
 		ExternalApi: ExternalApi{
 			BaseUrl: viper.GetString("external_api.base_url"),

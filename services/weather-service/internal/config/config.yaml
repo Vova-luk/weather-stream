@@ -1,5 +1,6 @@
 server:
   port: 50052
+  location_service_port: 50051
 
 database:
   host: "postgres"
@@ -8,8 +9,9 @@ database:
 
 kafka:
   brokers: "kafka:9092"
-  group_id: "weather-service-group"
+  group_id: "weather-service-group"4
   location_topic: "location-added-topic"
+  weather_topic: "weather-updated-topic"
 
 external_api:
   base_url: "https://api.weatherapi.com/v1/current.json"
