@@ -47,7 +47,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error connecting to weather-service %s", err.Error())
 	}
-	log.Infof("Connected to weather-service on the port: %s", 50052)
+	log.Infof("Connected to weather-service on the port: %s", cfg.Server.WeatherServicePort)
 
 	weatherClient := weatherPb.NewWeatherServiceClient(weatherConn)
 
