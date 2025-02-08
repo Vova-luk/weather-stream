@@ -41,7 +41,7 @@ func (w *WeatherRepository) UpdateCurrentWeather(weatherData *models.WeatherData
 				SET temperature = :temperature,
 				humidity = :humidity,
 				wind_speed = :wind_speed,
-				pressure = :pressure.
+				pressure = :pressure,
 				precip = :precip,
 				cloud = :cloud
 			  WHERE location_id = :location_id;
