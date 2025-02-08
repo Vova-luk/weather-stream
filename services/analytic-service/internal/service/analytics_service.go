@@ -18,9 +18,10 @@ type AnalyticsService struct {
 	log                 *logrus.Logger
 }
 
-func NewAnalyticsService(analyticsRepository *repository.AnalyticsRepository, log *logrus.Logger) *AnalyticsService {
+func NewAnalyticsService(analyticsRepository *repository.AnalyticsRepository, kafkaConsumerGroup sarama.ConsumerGroup, log *logrus.Logger) *AnalyticsService {
 	return &AnalyticsService{
 		analyticsRepository: analyticsRepository,
+		kafkaConsumerGroup:  kafkaConsumerGroup,
 		log:                 log,
 	}
 }

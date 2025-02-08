@@ -9,6 +9,7 @@ import (
 	"github.com/Vova-luk/weather-stream/services/analytic-service/internal/repository"
 	"github.com/Vova-luk/weather-stream/services/analytic-service/internal/service"
 	"github.com/Vova-luk/weather-stream/services/analytic-service/pkg/db"
+	"github.com/Vova-luk/weather-stream/services/analytic-service/pkg/kafka"
 	analyticsPb "github.com/Vova-luk/weather-stream/services/analytic-service/proto"
 	"google.golang.org/grpc"
 )
@@ -23,8 +24,16 @@ func main() {
 		log.Fatalf("Bad Connect to Postgre %s", err.Error())
 	}
 
+	brokers := cfg.Kafka.Brokers
+	group_id := cfg.Kafka.GroupId
+
+	consumerGroup, err := kafka.NewConsumerGroup(brokers, group_id)
+	if err != nil {
+		log.Fatalf("error when creating consumer group %v", err)
+	}
+
 	analyticsRepository := repository.NewAnalyticsRepository(database)
-	analyticsService := service.NewAnalyticsService(analyticsRepository, log)
+	analyticsService := service.NewAnalyticsService(analyticsRepository, consumerGroup, log)
 	analyticsHandler := handler.NewAnalyticsHandler(analyticsService)
 
 	go func() {
