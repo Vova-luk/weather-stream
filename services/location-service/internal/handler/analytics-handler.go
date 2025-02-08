@@ -10,6 +10,7 @@ import (
 )
 
 type AnalyticsHandler struct {
+	locationAnalyticsPb.UnimplementedAnalyticsServiceServer
 	analyticsService *service.AnalyticsService
 }
 
