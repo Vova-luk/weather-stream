@@ -70,6 +70,22 @@ services:
       - postgre-network
       - kafka-network
 
+  analytic-service:
+    build:
+      context: ./services/analytic-service
+      dockerfile: Dockerfile
+    container_name: analytic-service
+    depends_on:
+      - postgres
+      - kafka
+    ports:
+      - "50053:50053"
+    env_file:
+      - ./services/analytic-service/.env
+    networks:
+      - postgre-network
+      - kafka-network
+
 networks:
   kafka-network:
     driver: bridge
