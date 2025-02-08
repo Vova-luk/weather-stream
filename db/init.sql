@@ -14,3 +14,15 @@ CREATE TABLE weathers (
     cloud INT NOT NULL,
     updated_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE weather_analysis (
+    id SERIAL PRIMARY KEY,
+    location_id INT NOT NULL,
+    temperature DECIMAL(5, 2) NOT NULL,
+    humidity INT NOT NULL,
+    wind_speed DECIMAL(5, 2) NOT NULL,
+    pressure DECIMAL(5, 2) NOT NULL,
+    precip DECIMAL(5, 2) NOT NULL,
+    cloud INT NOT NULL,
+    updated_at TIMESTAMP DEFAULT NOW()
+);
