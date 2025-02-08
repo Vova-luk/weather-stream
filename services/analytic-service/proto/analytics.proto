@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package analytics;
+
+// protoc   -I ./proto --go_out=./proto --go_opt=paths=source_relative   --go-grpc_out=./proto --go-grpc_opt=paths=source_relative  proto/analytics.proto
+
+
+option go_package = "github.com/Vova-luk/weather-stream/services/analytics-service/proto;analytics";
+
+service AnalyticService {
+    rpc GetAnalyticsById(GetAnalyticsByIdRequest) returns (GetAnalyticsByIdResponse);
+}
+
+message GetAnalyticsByIdRequest {
+    int32 location_id = 1;
+    string period = 2;
+}
+
+message AnalyticsWeather {
+    int32 location_id = 1;
+    double avg_temperature = 2;
+    double avg_humidity = 3;
+    double avg_wind_speed = 4;
+    double avg_pressure = 5;
+    double avg_precip = 6;
+    double avg_cloud = 7;
+}
+
+message GetAnalyticsByIdResponse {
+    AnalyticsWeather analytics = 1;
+}
