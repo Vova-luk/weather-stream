@@ -12,12 +12,13 @@ require (
 	github.com/spf13/viper v1.19.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20250127172529-29210b9bc287
 	google.golang.org/grpc v1.70.0
-	google.golang.org/protobuf v1.36.4
+	google.golang.org/protobuf v1.36.5
 )
 
 // replace github.com/Vova-luk/weather-stream/services/weather-service => ../weather-service
 
 require (
+	github.com/Vova-luk/weather-stream/services/analytic-service v0.0.0-20250208092252-2f512d09a33a // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/eapache/go-resiliency v1.7.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3 // indirect
