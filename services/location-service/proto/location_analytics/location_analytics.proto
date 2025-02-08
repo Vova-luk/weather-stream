@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package location_analytics;
+
+// protoc   -I ./proto/location_analytics  -I ./proto/third_party   --go_out=./proto/location_analytics --go_opt=paths=source_relative   --go-grpc_out=./proto/location_analytics --go-grpc_opt=paths=source_relative   --grpc-gateway_out=./proto/location_analytics --grpc-gateway_opt=paths=source_relative   proto/location_analytics/location_analytics.proto
+
+option go_package = "github.com/Vova-luk/weather-stream/services/location-service/location_analytics/proto;location_analytics";
+
+import "google/api/annotations.proto";
+
+service AnalyticsService {
+    rpc GetAnalyticsById(GetAnalyticsByIdRequest) returns (GetAnalyticsByIdResponse) {
+        option (google.api.http) = {
+            get: "/v1/analytics/{location_id}/period/{period}"
+        };
+    }
+}
+
+message GetAnalyticsByIdRequest {
+    int32 location_id = 1;
+    string period = 2;
+}
+
+message GetAnalyticsByIdResponse {
+    AnalyticsWeather Analytics = 1;
+}
+
+message AnalyticsWeather {
+    int32 location_id = 1;
+    double avg_temperature = 2;
+    double avg_humidity = 3;
+    double avg_wind_speed = 4;
+    double avg_pressure = 5;
+    double avg_precip = 6;
+    double avg_cloud = 7;
+}
