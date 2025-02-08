@@ -11,9 +11,10 @@ type Config struct {
 }
 
 type Server struct {
-	Port               string
-	WeatherServicePort string
-	GatewayPort        string
+	Port                string
+	WeatherServicePort  string
+	AnalyticServicePort string
+	GatewayPort         string
 }
 
 type Database struct {
@@ -45,9 +46,10 @@ func LoadConfig() *Config {
 
 	cfg := &Config{
 		Server: Server{
-			Port:               viper.GetString("server.port"),
-			WeatherServicePort: viper.GetString("server.weather_service_port"),
-			GatewayPort:        viper.GetString("server.gateway_port"),
+			Port:                viper.GetString("server.port"),
+			WeatherServicePort:  viper.GetString("server.weather_service_port"),
+			AnalyticServicePort: viper.GetString("server.analytic_service_port"),
+			GatewayPort:         viper.GetString("server.gateway_port"),
 		},
 		DB: Database{
 			Host:     viper.GetString("database.host"),
