@@ -27,6 +27,10 @@ func main() {
 	analyticsService := service.NewAnalyticsService(analyticsRepository, log)
 	analyticsHandler := handler.NewAnalyticsHandler(analyticsService)
 
+	go func() {
+		analyticsService.StartKafkaConsumer(cfg.Kafka.Topic)
+	}()
+
 	grpcServer := grpc.NewServer()
 
 	analyticsPb.RegisterAnalyticServiceServer(grpcServer, analyticsHandler)
