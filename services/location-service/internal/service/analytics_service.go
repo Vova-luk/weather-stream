@@ -13,8 +13,11 @@ type AnalyticsService struct {
 	log             *logrus.Logger
 }
 
-func NewAnalyticsService() *AnalyticsService {
-	return &AnalyticsService{}
+func NewAnalyticsService(analyticsClient analyticsPb.AnalyticServiceClient, log *logrus.Logger) *AnalyticsService {
+	return &AnalyticsService{
+		analyticsClient: analyticsClient,
+		log:             log,
+	}
 }
 
 func (a *AnalyticsService) GetAnalyticsById(locationId int32, period string) (*locationAnalyticsPb.AnalyticsWeather, error) {
