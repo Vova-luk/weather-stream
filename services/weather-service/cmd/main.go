@@ -55,12 +55,16 @@ func main() {
 		weatherService.StartKafkaConsumer(cfg.Kafka.LocationTopic)
 	}()
 
+	go func() {
+		weatherService.UpdatesRegularWeather(cfg.Kafka.WeatherTopic)
+	}()
+
 	grpcServer := grpc.NewServer()
 	weatherPb.RegisterWeatherServiceServer(grpcServer, weatherHandler)
 
 	grpcAddr := ":" + cfg.Server.Port
 
-	log.Infof("🚀 Starting gRPC server on port %s", grpcAddr)
+	log.Infof("Starting gRPC server on port %s", grpcAddr)
 	listen, err := net.Listen("tcp", grpcAddr)
 	if err != nil {
 		log.Fatalf("Failed to listen on port:%s, %v", grpcAddr, err)
