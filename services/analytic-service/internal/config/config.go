@@ -7,6 +7,7 @@ import (
 type Config struct {
 	Server   Server
 	Database Database
+	Kafka    Kafka
 }
 
 type Server struct {
@@ -20,6 +21,12 @@ type Database struct {
 	Password string
 	DBName   string
 	SSLMode  string
+}
+
+type Kafka struct {
+	Brokers []string
+	GroupId string
+	Topic   string
 }
 
 func LoadConfig() *Config {
@@ -42,6 +49,11 @@ func LoadConfig() *Config {
 			Password: viper.GetString("PORTGRES_PASSWORD"),
 			DBName:   viper.GetString("POSTGRES_DB"),
 			SSLMode:  viper.GetString("database.sslmode"),
+		},
+		Kafka: Kafka{
+			Brokers: viper.GetStringSlice("kafka.brokers"),
+			GroupId: viper.GetString("kafka.group_id"),
+			Topic:   viper.GetString("kafka.topic"),
 		},
 	}
 	return cfg
